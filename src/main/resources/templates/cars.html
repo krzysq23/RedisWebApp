@@ -1,0 +1,65 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Cars</title>
+    <header th:replace="header :: header"> </header>
+</head>
+
+<body bgcolor="white">
+
+    <header id="header" class="alt" th:include="menu :: title-menu" />
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <form th:action="@{/saveCar}" method="POST">
+                    <div class="form-group">
+                        <label for="key">Cars ID (key)</label>
+                        <input name="key" id="key" class="form-control" required/>
+                    </div>
+                    <div class="form-group">
+                        <label for="brand">Brand</label>
+                        <select class="form-control" id="brand" name="brand">
+                            <option>Audi</option>
+                            <option>Bmw</option>
+                            <option>Mercedes</option>
+                            <option>Fiat</option>
+                            <option>Volkswagen</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="model">Model</label>
+                        <input name="model" id="model" class="form-control" required/>
+                    </div>
+                    <button type="submit" class="btn btn-default" id="addButton">Save</button>
+                </form>
+            </div>
+
+            <div class="col-md-8 col-md-offset-1">
+                <table class="table table-hover" id="mainTable">
+                    <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Model</th>
+                        <th>Brand</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody th:each="car : ${list}" th:remove="tag">
+                        <tr>
+                            <td th:text="${car.id}"></td>
+                            <td th:text="${car.model}"></td>
+                            <td th:text="${car.brand}"></td>
+                            <td>
+                                <a th:href="@{('/deleteCar/'+${car.id})}" class="btn btn-default">Delete</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
